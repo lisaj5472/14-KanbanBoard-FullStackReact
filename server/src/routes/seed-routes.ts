@@ -5,7 +5,7 @@ import { seedTickets } from "../seeds/ticket-seeds.js";
 
 const router = Router();
 
-router.post("/run-seed", async (req, res) => {
+router.post("/run-seed", async (_req, res) => {
   try {
     await seedUsers();
     await seedTickets();
