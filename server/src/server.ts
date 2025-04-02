@@ -7,6 +7,7 @@ import express from "express";
 import cors from "cors";
 import routes from "./routes/index.js";
 import { sequelize } from "./models/index.js";
+import path from "path";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -19,9 +20,16 @@ app.use(
   })
 );
 
-app.use(express.static("../client/dist"));
 app.use(express.json());
+
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "client/dist")));
+
 app.use(routes);
+
+app.get("*", (__req, res) => {
+  res.sendFile(path.join(__dirname, "client/dist", "index.html"));
+});
 
 sequelize.sync({ force: forceDatabaseRefresh }).then(() => {
   app.listen(PORT, () => {
