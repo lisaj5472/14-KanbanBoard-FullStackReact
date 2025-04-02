@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { User } from "../models/user.js";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 // TODO: If the user exists and the password is correct, return a JWT token
 export const login = async (req, res) => {
     const { username, password } = req.body;
